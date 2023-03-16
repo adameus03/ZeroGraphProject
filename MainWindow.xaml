@@ -3,10 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:oxyc="http://oxyplot.org/wpf/contrib"
         xmlns:local="clr-namespace:ZeroGraphProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ZeroGraph" Height="450" Width="800">
+    <Window.DataContext>
+        <local:OxyViewModel/>
+    </Window.DataContext>
     <Grid>
-
+        <oxyc:Plot Title="{Binding Title}">
+            <oxyc:Plot.Series>
+                <oxyc:LineSeries ItemsSource="{Binding Points}"/>
+            </oxyc:Plot.Series>
+        </oxyc:Plot>
     </Grid>
 </Window>
