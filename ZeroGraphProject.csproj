@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="OxyPlot.Contrib.Wpf" Version="2.1.2" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
+    <PackageReference Include="WpfMath" Version="1.0.0" />
+    <PackageReference Include="XamlMath.Shared" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
