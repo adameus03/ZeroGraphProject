@@ -15,14 +15,14 @@
         <local:OxyViewModel/>
     </Window.DataContext>
     <Grid ShowGridLines="True" Cursor="Hand">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition x:Name="row1" Height="1*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition x:Name="col0" Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -35,13 +35,31 @@
         <controls:FormulaControl Formula="\color{white}{\cos e^x}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
         <controls:FormulaControl Formula="\color{white}{\cos^2(2x^2)-2^{\sin x^2}}" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
 
-        
-        
+
+
         <oxyc:Plot Title="{Binding Title}" Grid.Row="2" Grid.ColumnSpan="5">
             <oxyc:Plot.Series>
                 <oxyc:LineSeries ItemsSource="{Binding Points}"/>
             </oxyc:Plot.Series>
         </oxyc:Plot>
+        <!--<StackPanel x:Name="stackPanel1" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Image Stretch="UniformToFill"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="styled_bisection.png"/>
+        </StackPanel>
+        <StackPanel x:Name="stackPanel2" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <Image Stretch="UniformToFill"
+               Source="regula_falsi_styled.png"/>
+        </StackPanel>-->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="styled_bisection.png"/>
+            </Grid.Background>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.Background>
+                <ImageBrush ImageSource="regula_falsi_styled.png"/>
+            </Grid.Background>
+        </Grid>
 
     </Grid>
 </Window>
