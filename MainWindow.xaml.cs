@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfMath.Controls;
 
 namespace ZeroGraphProject
 {
@@ -23,6 +24,16 @@ namespace ZeroGraphProject
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void FormulaControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ((FormulaControl)sender).Background = Brushes.Red;
+        }
+
+        private void FormulaControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((FormulaControl)sender).Background = Brushes.Black;
         }
     }
 }

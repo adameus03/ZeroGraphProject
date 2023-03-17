@@ -9,7 +9,9 @@ namespace ZeroGraphProject
 {
     using OxyPlot;
     using System.Collections.Generic;
-    public class OxyViewModel
+    using System.ComponentModel;
+
+    public class OxyViewModel /*: INotifyPropertyChanged*/
     {
         public OxyViewModel()
         {
@@ -18,5 +20,18 @@ namespace ZeroGraphProject
         }
         public string Title { get; private set; }
         public IList<DataPoint> Points { get; private set; }
+
+        /*event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }*/
     }
 }

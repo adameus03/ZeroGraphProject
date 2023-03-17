@@ -14,7 +14,7 @@
     <Window.DataContext>
         <local:OxyViewModel/>
     </Window.DataContext>
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="True" Cursor="Hand">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -29,12 +29,14 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <!--<Label Content="Label" Grid.Row="0" Grid.Column="0"/>-->
-        <controls:FormulaControl Formula="\color{white}{x^2-2}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Black"/>
-        <controls:FormulaControl Formula="\color{white}{\cos(x)}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <controls:FormulaControl Formula="\color{white}{2^x-3}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <controls:FormulaControl Formula="\color{white}{\cos e^x}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <controls:FormulaControl Formula="\color{white}{\cos^2(2x^2)-2^{\sin x^2}}" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <controls:FormulaControl Formula="\color{white}{x^2-2}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
+        <controls:FormulaControl Formula="\color{white}{\cos(x)}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
+        <controls:FormulaControl Formula="\color{white}{2^x-3}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
+        <controls:FormulaControl Formula="\color{white}{\cos e^x}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
+        <controls:FormulaControl Formula="\color{white}{\cos^2(2x^2)-2^{\sin x^2}}" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
 
+        
+        
         <oxyc:Plot Title="{Binding Title}" Grid.Row="2" Grid.ColumnSpan="5">
             <oxyc:Plot.Series>
                 <oxyc:LineSeries ItemsSource="{Binding Points}"/>
