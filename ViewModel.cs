@@ -11,27 +11,20 @@ namespace ZeroGraphProject
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    public class OxyViewModel /*: INotifyPropertyChanged*/
+    public class ViewModel : INotifyPropertyChanged
     {
-        public OxyViewModel()
+        public ViewModel()
         {
-            this.Title = "Przykład";
+            this.Title = null;
             this.Points = new List<DataPoint> { new DataPoint(0, 4), new DataPoint(10, 13), new DataPoint(20, 15), new DataPoint(30, 16), new DataPoint(40, 12), new DataPoint(50, 12) };
         }
+        public Model.LimitMethod limitMethod { get; private set; }
+        public uint N { get; private set; }
+        public double Epsilon { get; private set; }
         public string Title { get; private set; }
         public IList<DataPoint> Points { get; private set; }
 
-        /*event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
-        {
-            add
-            {
-                throw new NotImplementedException();
-            }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-            remove
-            {
-                throw new NotImplementedException();
-            }
-        }*/
     }
 }
