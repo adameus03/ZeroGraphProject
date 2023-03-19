@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZeroGraphProject
 {
@@ -35,7 +30,6 @@ namespace ZeroGraphProject
                     for (int i = 0; i < iters; i++)
                     {
                         (a, b) = GetShrinkedInterval(a, b, ItersUsed++); 
-                        Debug.WriteLine($"a={a}; b={b}");
                     }
                 }
                 else
@@ -46,7 +40,6 @@ namespace ZeroGraphProject
                     {
                         old_x = (a + b) / 2;
                         (a, b) = GetShrinkedInterval(a, b, ItersUsed++); 
-                        Debug.WriteLine($"a={a}; b={b}");
                         new_x = (a + b) / 2;
                     }
                     while (Math.Abs(new_x - old_x) >= epsilon);
@@ -57,9 +50,8 @@ namespace ZeroGraphProject
                 MemZero = solution.Root;
                 return solution.Root;
             }
-            //return (a + b) / 2;
 
-            double root = Kernel(a, b);  //!!
+            double root = Kernel(a, b);
             MemZero = root;
             return root;
 

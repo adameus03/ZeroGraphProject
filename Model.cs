@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZeroGraphProject
 {
@@ -30,7 +26,6 @@ namespace ZeroGraphProject
 
             double root = zeroFinder.Zero();
             this.LastZeroFinder = zeroFinder;
-            //this.ItersUsed = zeroFinder.ItersUsed;
             return root;
 
         }
