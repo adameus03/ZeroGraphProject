@@ -12,6 +12,9 @@
         <local:ViewModel/>
     </Window.DataContext>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="bg.jpg"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
