@@ -13,6 +13,16 @@ namespace ZeroGraphProject
         public RootFindingMethod Method => method;
 
 
+
+        public Func<double, double>[] functions =
+        { 
+            new Func<double, double>((double x) => x*(x*(x+1)-2)-1),
+            new Func<double, double>((double x) => Math.Cos(x)),
+            new Func<double, double>((double x) => Math.Pow(2, x)-3),
+            new Func<double, double>((double x) => Math.Cos(Math.Exp(x))),
+            new Func<double, double>((double x) => Math.Pow(Math.Cos(2*x*x),2)-Math.Pow(2,Math.Sin(x*x)))
+        };
+
         public enum RootFindingMethod { Bisection, RegulaFalsi };
         public class Bisection : ZeroFinder
         {
@@ -29,7 +39,6 @@ namespace ZeroGraphProject
                 return (a * f(b) - b * f(a)) / (b - a);
             }
         }
-
 
 
     }

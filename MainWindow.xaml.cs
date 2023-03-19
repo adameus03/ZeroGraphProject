@@ -24,6 +24,7 @@ namespace ZeroGraphProject
         public MainWindow()
         {
             InitializeComponent();
+            (new Window1()).Show(); this.Close();
         }
 
         private void FormulaControl_MouseEnter(object sender, MouseEventArgs e)
