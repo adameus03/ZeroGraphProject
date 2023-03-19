@@ -40,8 +40,7 @@ namespace ZeroGraphProject
 
         public ViewModel()
         {
-            /*this.Title = null;
-            this.Points = new List<DataPoint> { new DataPoint(0, 4), new DataPoint(10, 13), new DataPoint(20, 15), new DataPoint(30, 16), new DataPoint(40, 12), new DataPoint(50, 12) };*/
+            
             this.terminalLines.CollectionChanged += TerminalLines_CollectionChanged;
 
             this.FormulaIndex = 0;
@@ -63,14 +62,6 @@ namespace ZeroGraphProject
 
             model.ComputationMonitorSignalReceived += Model_ComputationMonitorSignalReceived;
 
-            /*Task.Run(() =>
-            {
-                while (true)
-                {
-                    Thread.Sleep(300);
-                    this.terminalLines.Add("!");
-                }
-            });*/
         }
 
         private void InitPlot()
@@ -90,13 +81,6 @@ namespace ZeroGraphProject
             this.PlotModel.Series.Add(new FunctionSeries(model.functions[FormulaIndex], LeftBound, RightBound, 0.01));
             this.PlotModel.Series.Add(new FunctionSeries((x) => 0, LeftBound, RightBound, 0.01));
 
-            /*ScatterSeries series = new ScatterSeries
-            {
-                MarkerFill = TerminationIndex == 0 ? OxyColors.Blue : OxyColors.Red,
-                MarkerType = TerminationIndex == 0 ? MarkerType.Triangle : MarkerType.Cross,
-                MarkerSize = 10
-            };
-            this.PlotModel.Series.Add(series);*/
 
         }
         public void Replot()
@@ -119,11 +103,6 @@ namespace ZeroGraphProject
             
         }
 
-        /*public ZeroFinder.LimitMethod limitMethod { get; private set; }
-public uint N { get; private set; }
-public double Epsilon { get; private set; }
-public string Title { get; private set; }
-public IList<DataPoint> Points { get; private set; }*/
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -147,23 +126,6 @@ public IList<DataPoint> Points { get; private set; }*/
             terminalLines.Add("Reading CalculateRootCommand");
             Task.Run(() =>
             {
-                /*CalculateRootButtonIsEnabled = false;
-                terminalLines.Add($"Calculating root...");
-                try
-                {
-                    double root = model.CalculateRoot(FormulaIndex, (Model.RootFindingMethod)MethodIndex, (ZeroFinder.LimitMethod)TerminationIndex, TerminationConstant, LeftBound, RightBound);
-                    terminalLines.Add($"Root estimated at x = {root}");
-                }
-                catch (ZeroFinder.OppositeSignsConditionUnsatisfiedException ex)
-                {
-
-                    terminalLines.Add($"!!! {ex.Message} !!!");
-                    terminalLines.Add($"Aborted root estimation");
-                }
-                finally
-                {
-                    CalculateRootButtonIsEnabled = true;
-                }*/
                 InTaskMonitoredCalculation();
             });
             
@@ -220,7 +182,6 @@ public IList<DataPoint> Points { get; private set; }*/
                     this.PlotModel.Series.Add(series);
                     terminalLines.Add($"Solution marker at ({x}, {y})");
                     this.PlotModel.InvalidatePlot(true);
-                    // this.PlotModel.Series.Remove(series);
                 }
 
             });
