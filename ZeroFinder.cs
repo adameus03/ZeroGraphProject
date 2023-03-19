@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,14 +27,15 @@ namespace ZeroGraphProject
             {
                 throw new OppositeSignsConditionUnsatisfiedException(a, b);
             }
-
+            ItersUsed = 0;
             try
             {
                 if (lim_method == LimitMethod.ByIters)
                 {
-                    for (uint i = 0; i < iters; i++)
+                    for (int i = 0; i < iters; i++)
                     {
-                        (a, b) = GetShrinkedInterval(a, b);
+                        (a, b) = GetShrinkedInterval(a, b, ItersUsed++); 
+                        Debug.WriteLine($"a={a}; b={b}");
                     }
                 }
                 else
@@ -43,7 +45,8 @@ namespace ZeroGraphProject
                     do
                     {
                         old_x = (a + b) / 2;
-                        (a, b) = GetShrinkedInterval(a, b);
+                        (a, b) = GetShrinkedInterval(a, b, ItersUsed++); 
+                        Debug.WriteLine($"a={a}; b={b}");
                         new_x = (a + b) / 2;
                     }
                     while (Math.Abs(new_x - old_x) >= epsilon);
@@ -51,30 +54,62 @@ namespace ZeroGraphProject
             }
             catch (RootFound solution)
             {
+                MemZero = solution.Root;
                 return solution.Root;
             }
-            return (a + b) / 2;
+            //return (a + b) / 2;
+
+            double root = Kernel(a, b);  //!!
+            MemZero = root;
+            return root;
 
         }
 
         protected abstract double Kernel(double a, double b);
 
-        private (double, double) GetShrinkedInterval(double a, double b)
+        public event EventHandler<IntervalShrinkedEventArgs> IntervalShrinked;
+        private (double, double) GetShrinkedInterval(double a, double b, int i)
         {
             double x_0 = Kernel(a, b);
+            this.OnIntervalShrinked(x_0, i);
             double f_x0 = f.Invoke(x_0);
             if (f_x0 == 0)
             {
+                MemA = x_0 - double.Epsilon;
+                MemB = x_0 + double.Epsilon;
                 throw new RootFound(x_0);
             }
             if (OppositeSignsCheck(f.Invoke(a), f_x0))
             {
+                MemA = a;
+                MemB = x_0;
                 return (a, x_0);
             }
             else
             {
+                MemA = x_0;
+                MemB = b;
                 return (x_0, b);
             }
+        }
+
+        public void OnIntervalShrinked(double x, int i)
+        {
+            this.IntervalShrinked?.Invoke(this, new IntervalShrinkedEventArgs(x, i));
+        }
+
+
+        public class IntervalShrinkedEventArgs : EventArgs
+        {
+            private double x;
+            private int i;
+            public IntervalShrinkedEventArgs(double x, int i)
+            {
+                this.x = x;
+                this.i = i;
+            }
+            public double X => x;
+            public double I => i;
         }
 
         private bool OppositeSignsCheck(double a, double b)
@@ -89,6 +124,14 @@ namespace ZeroGraphProject
         public uint Iters { get => iters; set => iters = value; }
         public LimitMethod Termination { get => lim_method; set => lim_method = value; }
 
+
+        public int ItersUsed { get; private set; }
+        public double MemZero { get; private set; }
+        public double MemA { get; private set; }
+        public double MemB { get; private set; }
+
+        public double LeftAccuracy => MemZero - MemA;
+        public double RightAccuracy => MemB - MemZero;
 
         private class RootFound : Exception
         {
@@ -114,7 +157,7 @@ namespace ZeroGraphProject
             }
             public double A => a;
             public double B => b;
-            public override string Message => $"The opposite signs condition was not satisfied given the range [{a}, {b}]";
+            public override string Message => $"The opposite signs condition was not satisfied given the range [{a}; {b}]";
         }
     }
 }

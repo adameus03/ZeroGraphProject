@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace ZeroGraphProject
 {
-    public class ReplotCommand : ICommand
+    public class ButtonCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         public event EventHandler ExecuteReceived;
@@ -22,4 +22,5 @@ namespace ZeroGraphProject
             ExecuteReceived?.Invoke(this, new EventArgs());
         }
     }
+
 }

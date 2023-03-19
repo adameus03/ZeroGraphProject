@@ -24,17 +24,12 @@ namespace ZeroGraphProject
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             (new Window1()).Show(); this.Close();
-        }
-
-        private void FormulaControl_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ((FormulaControl)sender).Background = Brushes.Red;
-        }
-
-        private void FormulaControl_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ((FormulaControl)sender).Background = Brushes.Black;
         }
     }
 }

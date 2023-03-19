@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bg.jpg" />
     <None Remove="regula_falsi_styled.png" />
     <None Remove="styled_bisection.png" />
   </ItemGroup>
@@ -19,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="bg.jpg" />
     <Resource Include="regula_falsi_styled.png" />
     <Resource Include="styled_bisection.png" />
   </ItemGroup>

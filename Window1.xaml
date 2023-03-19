@@ -7,7 +7,7 @@
         xmlns:oxyc="http://oxyplot.org/wpf/contrib"
         xmlns:local="clr-namespace:ZeroGraphProject"
         mc:Ignorable="d"
-        Title="Window1" Height="742" Width="1511">
+        Title="ZeroGraph" Height="742" Width="1511">
     <Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>
@@ -87,16 +87,16 @@
         </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
             <Button Margin="2 0" Command="{Binding ReplotCommand}">Replot</Button>
-            <Button Margin="2 0">Calculate root</Button>
-            <Button Margin="2 0">Print root</Button>
-            <Button Margin="2 0">Clear terminal</Button>
+            <Button Margin="2 0" Command="{Binding CalculateRootCommand}" IsEnabled="{Binding Path=CalculateRootButtonIsEnabled, Mode=OneWay}">Calculate root</Button>
+            <Button Margin="2 0" Command="{Binding PrintRootCommand}">Print root</Button>
+            <Button Margin="2 0" Command="{Binding ClearTerminalCommand}">Clear terminal</Button>
         </StackPanel>
         <Border Grid.Row="7" BorderBrush="AliceBlue" Margin="2 2 2 2" Visibility="Visible" BorderThickness="1">
             <TextBox x:Name="console" TextWrapping="Wrap" Background="Black" Foreground="LawnGreen"  FontFamily="Console" Text="{Binding Path=TerminalText, Mode=OneWay}" TextChanged="console_TextChanged"/>
         </Border>
 
         <oxyc:Plot Grid.Column="1" Grid.RowSpan="8" Model="{Binding Path=PlotModel, Mode=OneWay}">
-
+            
         </oxyc:Plot>
 
     </Grid>

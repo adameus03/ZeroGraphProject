@@ -10,115 +10,44 @@
         mc:Ignorable="d"
         Title="ZeroGraph" 
         Height="830" Width="1000">
+    <Grid ShowGridLines="True">
+        <Grid.Background>
+            <ImageBrush ImageSource="bg.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Height="200" Width="350" Source="styled_bisection.png" Margin="85,242,65,372" Grid.RowSpan="2">
+            <Image.RenderTransform>
+                <RotateTransform Angle="-45"/>
+            </Image.RenderTransform>
+        </Image>
+        <Image Grid.Column="1" Height="200" Width="350" Source="regula_falsi_styled.png" Margin="196,-3,-46,210">
+            <Image.RenderTransform>
+                <RotateTransform Angle="45"/>
+            </Image.RenderTransform>
+        </Image>
+        <TextBlock Grid.Row="1" FontSize="24" FontWeight="ExtraBold" VerticalAlignment="Center" HorizontalAlignment="Center">
+            Laboratorium metod numerycznych
+            <LineBreak/>
+            Grupa 1_2023_AF_wt_1215
+            <LineBreak/>
+            Zespół {242524, 242542}
+        </TextBlock>
+        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="center" Width="300" Height="100" FontSize="24" Click="Button_Click">
+            Open ZeroGraph
+        </Button>
+
+    </Grid>
+
     <!--<Window.DataContext>
         <local:ViewModel/>
     </Window.DataContext>-->
-    <Grid ShowGridLines="True" Cursor="Hand">
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition x:Name="row1" Height="1*"/>
-            <RowDefinition Height="10*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="col0" Width="1*"/>
-            <ColumnDefinition x:Name="col1" Width="1*"/>
-            <ColumnDefinition x:Name="col2" Width="1*"/>
-            <ColumnDefinition x:Name="col3" Width="1*"/>
-            <ColumnDefinition x:Name="col4" Width="1*"/>
-            <ColumnDefinition x:Name="col5" Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <!--<Label Content="Label" Grid.Row="0" Grid.Column="0"/>-->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Background="Black" x:Name="formulasGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <controls:FormulaControl Formula="\color{white}{x^2-2}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave" Background="Black"/>
-            <controls:FormulaControl Formula="\color{white}{\cos(x)}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
-            <controls:FormulaControl Formula="\color{white}{2^x-3}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
-            <controls:FormulaControl Formula="\color{white}{\cos e^x}" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
-            <controls:FormulaControl Formula="\color{white}{\cos^2(2x^2)-2^{\sin x^2}}" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave"/>
-        </Grid>
-        <!--<controls:FormulaControl Formula="\color{white}{x^2-2}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" MouseEnter="FormulaControl_MouseEnter" MouseLeave="FormulaControl_MouseLeave" Background="Black"/>-->
 
 
-        <oxyc:Plot Title="{Binding Title}" Grid.Row="2" Grid.ColumnSpan="5" BorderThickness="5" PanCursor="Hand" ZoomHorizontalCursor="SizeWE" ZoomRectangleCursor="SizeNWSE" ZoomVerticalCursor="SizeNS">
-            <oxyc:Plot.Series>
-                <oxyc:LineSeries ItemsSource="{Binding Points}"/>
-            </oxyc:Plot.Series>
-        </oxyc:Plot>
-        <!--<StackPanel x:Name="stackPanel1" Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Image Stretch="UniformToFill"
-               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="styled_bisection.png"/>
-        </StackPanel>
-        <StackPanel x:Name="stackPanel2" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-            <Image Stretch="UniformToFill"
-               Source="regula_falsi_styled.png"/>
-        </StackPanel>-->
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.Background>
-                <ImageBrush ImageSource="styled_bisection.png" />
-            </Grid.Background>
-        </Grid>
-
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.Background>
-                <ImageBrush ImageSource="regula_falsi_styled.png"/>
-            </Grid.Background>
-        </Grid>
-
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
-            <Label Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
-                Warunek stopu:
-            </Label>
-            <ComboBox>
-                <ComboBoxItem Content="Osiągnięcie liczby iteracji"/>
-                <ComboBoxItem Content="Dokładność"/>
-                <ComboBoxItem>
-                    <controls:FormulaControl Formula="a = " VerticalAlignment="Center" Margin="5 0"/>
-                </ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
-        
-
-        <!--<controls:FormulaControl Formula="\varepsilon = 0.1" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <controls:FormulaControl Formula="N = 10" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-
-        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal">
-            <controls:FormulaControl Formula="\varepsilon = " VerticalAlignment="Center" Margin="5 0"/>
-            <TextBox VerticalAlignment="Center" Margin="5 0"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="4" Orientation="Horizontal">
-            <controls:FormulaControl Formula="N = " VerticalAlignment="Center" Margin="5 0"/>
-            <TextBox VerticalAlignment="Center" Margin="5 0"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="0" Grid.Column="5" Orientation="Horizontal">
-            <controls:FormulaControl Formula="a = " VerticalAlignment="Center" Margin="5 0"/>
-            <TextBox VerticalAlignment="Center" Margin="5 0"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="5" Orientation="Horizontal">
-            <controls:FormulaControl Formula="b = " VerticalAlignment="Center" Margin="5 0"/>
-            <TextBox VerticalAlignment="Center" Margin="5 0"/>
-        </StackPanel>
-
-        <Grid Grid.Row="2" Grid.Column="5" Background="Black" x:Name="logGrid">
-
-        </Grid>
-
-    </Grid>
 </Window>
-<!--
-    <oxyc:Plot Title="{Binding Title}">
-    <oxyc:Plot.Series>
-        <oxyc:LineSeries ItemsSource="{Binding Points}"/>
-    </oxyc:Plot.Series>
-    </oxyc:Plot>
-    -->
