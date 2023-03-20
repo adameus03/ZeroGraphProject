@@ -153,7 +153,7 @@ namespace ZeroGraphProject
             return root;
         }
 
-        private void Model_ComputationMonitorSignalReceived(object sender, ZeroFinder.IntervalShrinkedEventArgs e)
+        private void Model_ComputationMonitorSignalReceived(object sender, ZeroFinder.IntervalShrinkingEventArgs e)
         {
             terminalLines.Add($"Computation monitor/> {e.X}    [after {e.I} iters]");
             Thread.Sleep(100);

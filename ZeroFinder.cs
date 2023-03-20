@@ -18,14 +18,14 @@ namespace ZeroGraphProject
             double a = this.a;
             double b = this.b;
 
-            if(!OppositeSignsCheck(f(a), f(b)))
+            if(!OppositeSignsCheck(f(a), f(b))) //sprawdź założenie o przeciwnych znakach funkcji na krańcach przedziału
             {
                 throw new OppositeSignsConditionUnsatisfiedException(a, b);
             }
             ItersUsed = 0;
             try
             {
-                if (lim_method == LimitMethod.ByIters)
+                if (lim_method == LimitMethod.ByIters) //sprawdź typ warunku stopu
                 {
                     for (int i = 0; i < iters; i++)
                     {
@@ -34,68 +34,70 @@ namespace ZeroGraphProject
                 }
                 else
                 {
-                    double old_x;
-                    double new_x;
+                    double old_x; // aka x_(i-1)
+                    double new_x; // aka x_i
                     do
                     {
                         old_x = (a + b) / 2;
                         (a, b) = GetShrinkedInterval(a, b, ItersUsed++); 
                         new_x = (a + b) / 2;
                     }
-                    while (Math.Abs(new_x - old_x) >= epsilon);
+                    while (Math.Abs(new_x - old_x) >= epsilon); //sprawdzenie dokładności aka |x_i-x_(i-1)|>e (war. stopu niespełniony)
                 }
             }
-            catch (RootFound solution)
+            catch (RootFound solution) //zwrócenie wyniku, gdy pierwiastek został znaleziony przed założoną liczbą iteracji / osiągnięciem warunku |x_(i+1)-x_i|<e
             {
-                MemZero = solution.Root;
+                MemZero = solution.Root; //oprócz zwrócenia wyniku, zapamiętaj go w właściwości MemZero (aka Memory Zero)
                 return solution.Root;
             }
 
-            double root = Kernel(a, b);
+            double root = Kernel(a, b); // patrz na metodę niżej
             MemZero = root;
             return root;
 
         }
 
+        //Kernel zwraca dla bisekcji środek przedziału, a dla regula falsi punkt przecięcia prostej z osią OX
         protected abstract double Kernel(double a, double b);
 
-        public event EventHandler<IntervalShrinkedEventArgs> IntervalShrinked;
         private (double, double) GetShrinkedInterval(double a, double b, int i)
         {
-            double x_0 = Kernel(a, b);
-            this.OnIntervalShrinked(x_0, i);
-            double f_x0 = f.Invoke(x_0);
-            if (f_x0 == 0)
+            double x_0 = Kernel(a, b);        //  Obliczenie wartości zwróconej przez kernel
+            this.OnIntervalShrinking(x_0, i); //informowanie o zdarzeniu pomniejszania przedziału
+            double f_x0 = f.Invoke(x_0);    // obliczenie f(x_0)
+            if (f_x0 == 0) // jeśli f(x_0)=0 to bingo! Znaleźliśmy pierwiastek. W tym bloku kodu wyślemy go do metody wywołującej w formie wyjątku
             {
-                MemA = x_0 - double.Epsilon;
-                MemB = x_0 + double.Epsilon;
-                throw new RootFound(x_0);
+                MemA = x_0 - double.Epsilon; // ustawiamy promień przedziału na tak mały jak się da (ale niezerowy)
+                MemB = x_0 + double.Epsilon; //
+                throw new RootFound(x_0); // tutaj wysyłamy pierwiastek do metody wywołującej
             }
-            if (OppositeSignsCheck(f.Invoke(a), f_x0))
+            if (OppositeSignsCheck(f.Invoke(a), f_x0)) //sprawdza czy pierwiastek jest z lewej strony x_0
             {
-                MemA = a;
-                MemB = x_0;
-                return (a, x_0);
+                MemA = a;   //
+                MemB = x_0; // to są pola do zapamiętywania końcowego przedziału
+                return (a, x_0); // zwraca lewą stronę x_0
             }
             else
             {
                 MemA = x_0;
                 MemB = b;
-                return (x_0, b);
+                return (x_0, b); //zwraca prawą stronę x_0
             }
         }
 
-        public void OnIntervalShrinked(double x, int i)
+        public event EventHandler<IntervalShrinkingEventArgs> IntervalShrinking;
+
+        public void OnIntervalShrinking(double x, int i)
         {
-            this.IntervalShrinked?.Invoke(this, new IntervalShrinkedEventArgs(x, i));
+            this.IntervalShrinking?.Invoke(this, new IntervalShrinkingEventArgs(x, i));
         }
 
 
-        public class IntervalShrinkedEventArgs : EventArgs
+        public class IntervalShrinkingEventArgs : EventArgs
         {
             private double x;
             private int i;
-            public IntervalShrinkedEventArgs(double x, int i)
+            public IntervalShrinkingEventArgs(double x, int i)
             {
                 this.x = x;
                 this.i = i;

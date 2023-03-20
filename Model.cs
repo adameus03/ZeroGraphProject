@@ -19,7 +19,7 @@ namespace ZeroGraphProject
             {
                 zeroFinder.Iters = (uint)terminationConstant;
             }
-            zeroFinder.IntervalShrinked += (s, e)=>
+            zeroFinder.IntervalShrinking += (s, e)=>
             {
                 OnComputationMonitorSignalReceived(e);
             };
@@ -42,8 +42,8 @@ namespace ZeroGraphProject
             }
         }
 
-        public event EventHandler<ZeroFinder.IntervalShrinkedEventArgs> ComputationMonitorSignalReceived;
-        private void OnComputationMonitorSignalReceived(ZeroFinder.IntervalShrinkedEventArgs e)
+        public event EventHandler<ZeroFinder.IntervalShrinkingEventArgs> ComputationMonitorSignalReceived;
+        private void OnComputationMonitorSignalReceived(ZeroFinder.IntervalShrinkingEventArgs e)
         {
             this.ComputationMonitorSignalReceived?.Invoke(this, e);
         }
